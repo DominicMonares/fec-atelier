@@ -127,14 +127,16 @@ describe('Questions & Answers', function() {
       expect(SellerAnswer).toBeInTheDocument();
     })
 
-    xtest('should increment helpfulness count by 1', async function() {
+    // will need test server
+    test('should increment helpfulness count by 1', async function() {
       render(<Questions questions={product1Data} render={renderProps}/>);
       fireEvent.click(await screen.findByTestId('a-help-5181545'));
       const AnswersElement = (await screen.findByText('(5)'));
       expect(AnswersElement).toBeInTheDocument();
     })
 
-    xtest('should change report to reported when clicked', async function() {
+    // will need test server
+    test('should change report to reported when clicked', async function() {
       render(<Questions questions={product3Data} render={renderProps} />);
       fireEvent.click(await screen.findByTestId('report'));
       const ReportElement = (await screen.findByText('Reported'));
@@ -216,6 +218,14 @@ describe('Questions & Answers', function() {
       render(<Questions questions={product2Data} render={renderProps} />);
       const TopQuestions = screen.queryByText('MORE ANSWERED QUESTIONS');
       expect(TopQuestions).toBeNull();
+    })
+
+    // will need test server
+    test('should increment helpfulness count by 1', async function () {
+      render(<Questions questions={product1Data} render={renderProps} />);
+      fireEvent.click(await screen.findByTestId('q-help-553704'));
+      const QuestionsElement = (await screen.findByText('(2)'));
+      expect(QuestionsElement).toBeInTheDocument();
     })
 
   })

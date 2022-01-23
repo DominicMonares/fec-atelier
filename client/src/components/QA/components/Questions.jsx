@@ -118,7 +118,8 @@ class Questions extends React.Component {
                       <span className="q-helpful">Helpful?</span>&nbsp;
                       <span className={`q-help-count q-help-${q.question_id}-${q.question_helpfulness}`}
                         onClick={this.questionIsHelpful.bind(this)}>
-                        <span className={`q-help-count q-help-${q.question_id}-${q.question_helpfulness}`}>
+                        <span className={`q-help-count q-help-${q.question_id}-${q.question_helpfulness}`}
+                          data-testid={`q-help-${q.question_id}`}>
                           Yes
                         </span>&nbsp;{`(${q.question_helpfulness})`}
                       </span>
