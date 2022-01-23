@@ -407,6 +407,32 @@ const product2DataSorted = [
   }
 ];
 
+const product3Data = [
+  {
+    "question_id": 553704,
+    "question_body": "really, really, really",
+    "question_date": "2021-11-17T00:00:00.000Z",
+    "asker_name": "hello",
+    "question_helpfulness": 1,
+    "reported": false,
+    "answers": {
+      "5181392": {
+        "id": 5181392,
+        "body": "What do you want to ask?",
+        "date": "2021-11-18T00:00:00.000Z",
+        "answerer_name": "jack",
+        "helpfulness": 2,
+        "photos": [
+          {
+              "id": 4620673,
+              "url": "https://ucarecdn.com/87015f51-7e80-4761-833c-74581e0be910/"
+          }
+        ]
+      }
+    }
+  }
+];
+
 const answerData = {
   "question": "553704",
   "page": 1,
@@ -456,4 +482,5 @@ module.exports.product1Data = product1Data;
 module.exports.product1DataSorted = product1DataSorted;
 module.exports.product2Data = product2Data;
 module.exports.product2DataSorted = product2DataSorted;
+module.exports.product3Data = product3Data;
 module.exports.answerData = answerData;

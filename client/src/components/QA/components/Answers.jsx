@@ -46,6 +46,7 @@ class Answers extends React.Component {
 
   report(e) {
     e.preventDefault();
+    console.log("ADSFADF")
     let reportClasses = e.target.className;
     let secondClass = reportClasses.split(' ')[1];
     let answer_id = Number(secondClass.split('-')[1]);
@@ -83,8 +84,8 @@ class Answers extends React.Component {
     let answer = this.props.answer;
     if (answer.photos.length > 0) {
       this.setState({thumbnails: <div className="a-thumbnails">{_.map(answer.photos, (photo, index) => {
-        return <img className="a-thumbnail" key={photo.concat(index)} src={photo} alt="Answer Thumbnail"
-          onClick={this.openModal.bind(this)} />
+        return <img className="a-thumbnail" key={`${photo}-${index}`} src={photo} data-testid={`a-thumbnail-${index}`}
+        alt="Answer Thumbnail" onClick={this.openModal.bind(this)} />
       })}</div>})
     }
   }
@@ -112,7 +113,7 @@ class Answers extends React.Component {
       answerer = <b>Seller</b>
     }
 
-    let reportButton = <span className={`report report-${answer.id}`}
+    let reportButton = <span className={`report report-${answer.id}`} data-testid="report"
       onClick={this.report.bind(this)}>Report
     </span>
     if (this.state.reported) {
@@ -130,7 +131,7 @@ class Answers extends React.Component {
             <span className="a-helpful">Helpful?</span>&nbsp;
             <span className={`a-help-count a-help-${answer.id}-${answer.helpfulness}`}
               onClick={this.answerIsHelpful.bind(this)}>
-              <span className={`help-yes a-help-${answer.id}-${answer.helpfulness}`}>
+              <span className={`help-yes a-help-${answer.id}-${answer.helpfulness}`} data-testid="a-help">
                 Yes
               </span>&nbsp;{`(${answer.helpfulness})`}
             </span>
@@ -144,8 +145,8 @@ class Answers extends React.Component {
         style={modalStyle}
         contentLabel="View Image"
       >
-        <div className="a-thumbnail-modal">
-          <span className="close-a-thumbnail" onClick={this.closeModal.bind(this)}>X</span>
+        <div className="a-thumbnail-modal" data-testid="a-thumbnail-modal">
+          <span className="close-a-thumbnail" data-testid="close-a-thumbnail" onClick={this.closeModal.bind(this)}>X</span>
           {<img className="a-clicked-thumbnail" src={this.state.currentImg}></img>}
         </div>
       </Modal>
