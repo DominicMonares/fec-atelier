@@ -8,7 +8,7 @@ class AnswerList extends React.Component {
     this.state = {
       totalAnswers: _.values(props.answers).length,
       expanded: false,
-      expandButton: <span className="a-more" onClick={this.moreAnswers.bind(this)}
+      expandButton: <span className="a-more" data-testid="a-more" onClick={this.moreAnswers.bind(this)}
         key={`more-a-${this.props.question_id}`}>
         SEE MORE ANSWERS
       </span>
@@ -19,7 +19,7 @@ class AnswerList extends React.Component {
     e.preventDefault();
     this.setState({
       expanded: true,
-      expandButton: <span className="a-more" onClick={this.lessAnswers.bind(this)}
+      expandButton: <span className="a-more" data-testid="a-less" onClick={this.lessAnswers.bind(this)}
         key={`more-a-${this.props.question_id}`}>
         COLLAPSE ANSWERS
       </span>
@@ -31,7 +31,7 @@ class AnswerList extends React.Component {
     e.preventDefault();
     this.setState({
       expanded: false,
-      expandButton: <span className="a-more" onClick={this.moreAnswers.bind(this)}
+      expandButton: <span className="a-more" data-testid="a-more" onClick={this.moreAnswers.bind(this)}
         key={`more-a-${this.props.question_id}`}>
         SEE MORE ANSWERS
       </span>

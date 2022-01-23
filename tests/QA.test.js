@@ -52,6 +52,21 @@ describe('Questions & Answers', function() {
       expect(AnswerListElement).toBeNull();
     })
 
+    test('should expand answers', async function() {
+      render(<AnswerList questionId="553704" answers={Object.values(product1Data[0]['answers'])} render={renderProps} />);
+      fireEvent.click(await screen.findByTestId('a-more'));
+      const AnswerListElement = (await screen.findByTestId('a-less'));
+      expect(AnswerListElement).toBeInTheDocument();
+    })
+
+    test('should collapse answers', async function() {
+      render(<AnswerList questionId="553704" answers={Object.values(product1Data[0]['answers'])} render={renderProps} />);
+      fireEvent.click(await screen.findByTestId('a-more'));
+      fireEvent.click(await screen.findByTestId('a-less'));
+      const AnswerListElement = (await screen.findByTestId('a-more'));
+      expect(AnswerListElement).toBeInTheDocument();
+    })
+
   })
 
   describe('AnswerQuestion Component', function() {
@@ -173,6 +188,7 @@ describe('Questions & Answers', function() {
       const AskQuestionElement = (await screen.queryByTestId('qa-modal-form'));
       expect(AskQuestionElement).toBeNull();
     })
+
 
   })
 
