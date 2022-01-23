@@ -4,7 +4,7 @@ import _ from 'underscore';
 import $ from 'jquery';
 import moment from 'moment';
 
-Modal.setAppElement('#app');
+// Modal.setAppElement('#app');
 
 class Answers extends React.Component {
   constructor(props) {
