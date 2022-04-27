@@ -21,7 +21,7 @@ class RatingsList extends React.Component {
 
   handleChange(e) {
     e.preventDefault();
-    console.log(e.target.value);
+    this.props.render(e);
     this.props.handleSort(e.target.value);
   }
 
@@ -36,7 +36,8 @@ class RatingsList extends React.Component {
     })
   }
 
-  moreReviews() {
+  moreReviews(e) {
+    this.props.render(e);
     if (this.props) {
       this.props.moreReviews();
     }
@@ -78,7 +79,7 @@ class RatingsList extends React.Component {
 
     let ratings = this.props.ratings_to_display.map((rating) => {
       return (
-          <IndividualReview chooseHelpful={chooseHelpful} putMarkHelpful={putMarkHelpful} key={rating.review_id} review_id={rating.review_id}
+          <IndividualReview render={this.props.render} chooseHelpful={chooseHelpful} putMarkHelpful={putMarkHelpful} key={rating.review_id} review_id={rating.review_id}
           star_rating={rating.rating} summary={rating.summary} date={rating.date} body={rating.body} recommend={rating.recommend}
           reviewer_name={rating.reviewer_name} response={rating.response} helpfulness={rating.helpfulness} photos={rating.photos}></IndividualReview>
       )
@@ -102,7 +103,7 @@ class RatingsList extends React.Component {
           </div>
           <div>
             <span>{(count_to_display < recommend_total) ? <div><button className="btn" onClick={this.moreReviews}>MORE REVIEWS</button></div>: null}<NewReview
-            item_name={this.props.item_name} item_id={this.props.item_id} ratings_characteristics={this.props.ratings_meta.characteristics} className="new_review"></NewReview></span>
+            render={this.props.render} item_name={this.props.item_name} item_id={this.props.item_id} ratings_characteristics={this.props.ratings_meta.characteristics} className="new_review"></NewReview></span>
           </div>
       </div>
     )

@@ -18,6 +18,7 @@ class IndividualReview extends React.Component {
 
   showMore(e) {
     this.setState({truncated: false});
+    this.props.render(e);
   }
 
   componentDidMount() {
@@ -59,8 +60,8 @@ class IndividualReview extends React.Component {
               <span className="individual_star_rating"><StarRating star_rating={star_rating}></StarRating></span><span className="user_name_date">{reviewer_name}, {moment(date).format('LL')}</span>
             </div>
           <br></br><br></br><b>{summary}</b>
-          {this.state.truncated ? <div>{truncatedBody}<br></br><button onClick={this.showMore.bind(this)} >Show More</button></div>: <div>{body}</div>}
-          <br></br><ReviewImages photos={photos}></ReviewImages>
+          {this.state.truncated ? <div>{truncatedBody}<br></br><button render={this.props.render} onClick={this.showMore.bind(this)} >Show More</button></div>: <div>{body}</div>}
+          <br></br><ReviewImages render={this.props.render} photos={photos}></ReviewImages>
           <br></br> {recommend ? <img src={'images/transparent-background-check-mark.png'} alt='loading' width="10" height="10"/>: null}{recommend ? " I recommend this product.": null}
           <br></br><br></br>
           {response ? <div className="review_response">Response from seller:<br></br>{response}</div>: null}

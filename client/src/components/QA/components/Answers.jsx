@@ -83,7 +83,8 @@ class Answers extends React.Component {
     let answer = this.props.answer;
     if (answer.photos.length > 0) {
       this.setState({thumbnails: <div className="a-thumbnails">{_.map(answer.photos, (photo, index) => {
-        return <img className="a-thumbnail" key={photo.concat(index)} src={photo} onClick={this.openModal.bind(this)}></img>
+        return <img className="a-thumbnail" key={photo.concat(index)} src={photo} alt="Answer Thumbnail"
+          onClick={this.openModal.bind(this)} />
       })}</div>})
     }
   }

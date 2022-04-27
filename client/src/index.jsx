@@ -74,8 +74,10 @@ class App extends React.Component {
               return <QA itemid={this.state.item_id} render={sendMetrics} />
             }} />
           </div>
-          <div className="ratings">
-            <Ratings itemId={this.state.item_id} />
+          <div>
+            <ClickTracker render={sendMetrics => {
+              return <Ratings item_id={this.state.item_id} render={sendMetrics} />
+            }} />
           </div>
         </div>
         <div>

@@ -14,6 +14,7 @@ class ReviewImages extends React.Component {
 
   openModal = (e) => {
     e.preventDefault();
+    this.props.render(e);
     this.setState({
       modalOpen: true,
       activePicURL: e.target.dataset.mssg
@@ -22,6 +23,7 @@ class ReviewImages extends React.Component {
 
   closeModal = (e) => {
     e.preventDefault();
+    this.props.render(e);
     this.setState({
       modalOpen: false
     });

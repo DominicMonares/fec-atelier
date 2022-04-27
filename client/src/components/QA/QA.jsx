@@ -81,7 +81,7 @@ class QA extends React.Component {
         url: `/qa/questions/${this.props.itemid}/${this.state.page}`,
         method: 'GET',
         success: data => {
-          if (data.results.length < 4) {
+          if (data.results.length < 3 && this.state.page !== 1) {
             this.setState({ loaded: true });
           } else {
             let newQuestions = _.flatten(this.state.originalQuestions.slice().concat(data.results));
@@ -125,7 +125,8 @@ class QA extends React.Component {
     })
 
     if (typeof questionIndex === 'number') {
-      if (updatedQuestions[questionIndex].question_helpfulness > updatedQuestions[questionIndex - 1].question_helpfulness) {
+      let currentHelpfulness = updatedQuestions[questionIndex].question_helpfulness;
+      if (questionIndex !== 0 && currentHelpfulness > updatedQuestions[questionIndex - 1].question_helpfulness) {
         let placeholder = updatedQuestions[questionIndex];
         updatedQuestions[questionIndex] = updatedQuestions[questionIndex - 1];
         updatedQuestions[questionIndex - 1] = placeholder;
@@ -159,6 +160,30 @@ class QA extends React.Component {
     })
   }
 
+  updateQuestions(question) {
+    if (this.state.loaded) {
+      let newQuestions = this.state.originalQuestions.slice();
+      newQuestions.push(question);
+      this.setState({
+        originalQuestions: newQuestions,
+        questions: newQuestions
+      });
+    }
+  }
+
+  updateAnswers(question_id, answer) {
+    let newQuestions = this.state.originalQuestions.slice();
+    _.each(newQuestions, (q, index) => {
+      if (q.question_id === question_id) {
+        newQuestions[index]['answers'][answer.id] = answer;
+      }
+    })
+
+    this.setState({
+      originalQuestions: newQuestions
+    });
+  }
+
   componentDidMount() {
     this.getQAData();
     this.getProductName();
@@ -172,6 +197,8 @@ class QA extends React.Component {
         <SearchQuestion searchQuestions={this.searchQuestions.bind(this)} render={this.props.render}/>
         <Questions questions={state.questions} updateQHelp={this.updateQuestionHelp.bind(this)}
             updateAHelp={this.updateAnswerHelp.bind(this)}
+            updateAnswers={this.updateAnswers.bind(this)}
+            updateQuestions={this.updateQuestions.bind(this)}
             getQAData={this.getQAData.bind(this)}
             product_id={this.props.itemid}
             product_name={this.state.product_name}

@@ -16,7 +16,7 @@ const InputProductBreakdowns = (props) => {
 
     let listItems = characteristicsList.map((characteristic) => {
         return (
-          <IndividualInputProductBreakdown key={characteristic} characteristic={characteristic}
+          <IndividualInputProductBreakdown render={props.render} key={characteristic} characteristic={characteristic}
           characteristics_obj={characteristicsObj} update_characteristics={props.update_characteristics}/>
         )
       });

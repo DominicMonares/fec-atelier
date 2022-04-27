@@ -11,7 +11,8 @@ class RatingsMeta extends React.Component {
     this.callClearFilters = this.callClearFilters.bind(this);
   }
 
-  callClearFilters() {
+  callClearFilters(e) {
+    this.props.render(e);
     this.props.clear_filters();
     this.props.filter_data();
   }
@@ -58,7 +59,7 @@ class RatingsMeta extends React.Component {
 
       let star_counts = star_count_list.map((stars_counted) => {
         return (
-            <StarCount className="star_counts" getAllReviews={this.props.getAllReviews}flip_filters={this.props.flip_filters} filter_data={this.props.filter_data} key={stars_counted.stars} star_number={stars_counted.stars} star_count={stars_counted.star_count} item_id={this.props.item_id} sort={this.props.sort}></StarCount>
+            <StarCount className="star_counts" render={this.props.render} getAllReviews={this.props.getAllReviews}flip_filters={this.props.flip_filters} filter_data={this.props.filter_data} key={stars_counted.stars} star_number={stars_counted.stars} star_count={stars_counted.star_count} item_id={this.props.item_id} sort={this.props.sort}></StarCount>
         )
       });
 
@@ -80,10 +81,10 @@ class RatingsMeta extends React.Component {
         <div data-testid="ratings-breakdown" className="ratings_meta">
           <div>
             <span className="ratings_average">{ratings_average}</span>
-            <div className="star_rating_container"><ul><StarRating className="ratings_breakdown_stars" star_rating={ratings_average}></StarRating></ul></div>
+            <div className="star_rating_container"><StarRating className="ratings_breakdown_stars" star_rating={ratings_average}></StarRating></div>
           </div><br></br><br></br><br></br>
           <span className="percent_recommending">{percent_recommending}% of reviews recommend this product.</span><br></br><br></br>
-          <span className="rating_breakdown" >Rating Breakdown</span>
+          <span className="rating_breakdown">Rating Breakdown</span>
           {this.props.any_filters ? <span>Current filters: {filters} <span className="link" onClick={this.callClearFilters} >Remove all filters?</span></span>: null}
           <ul className="star_count_list">{star_counts}</ul>
           <ProductBreakdowns characteristics_list={characteristics_list}></ProductBreakdowns>

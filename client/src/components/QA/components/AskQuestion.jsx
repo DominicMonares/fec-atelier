@@ -2,6 +2,7 @@ import React from 'react';
 import Modal from 'react-modal';
 import _ from 'underscore';
 import $ from 'jquery';
+import moment from 'moment';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPlus} from '@fortawesome/free-solid-svg-icons'
 
@@ -94,9 +95,19 @@ class AskQuestion extends React.Component {
         url: `/qa/questions`,
         method: 'POST',
         data: questionData,
-        success: () => {
+        success: (res) => {
+          let newQuestion = {
+            question_id: Math.floor(Math.random() * (650000 - 600000 + 1)) + 600000,
+            question_body: this.state.question,
+            question_date: moment().local().format('YYYY-MM-DD').concat('T00:00:00.000Z'),
+            asker_name: this.state.nickname,
+            question_helpfulness: 0,
+            reported: false,
+            answers: {}
+          };
+
           this.closeModal(e);
-          this.props.getQAData();
+          this.props.updateQuestions(newQuestion);
         },
         error: err => {
           alert(err);

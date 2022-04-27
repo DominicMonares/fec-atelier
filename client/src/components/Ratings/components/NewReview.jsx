@@ -44,6 +44,7 @@ class NewReview extends React.Component {
 
   openModal(e) {
     e.preventDefault();
+    this.props.render(e);
     this.setState({
       modalOpen: true,
       product_name: this.props.product_name
@@ -52,12 +53,14 @@ class NewReview extends React.Component {
 
   closeModal(e) {
     //e.preventDefault();
+    this.props.render(e);
     this.setState({modalOpen: false});
     //refresh questions list
   }
 
   chooseStars(e) {
     e.preventDefault();
+    this.props.render(e);
 
     let starNum = parseInt((e.target.className).slice(5));
     let newMeaning = '';
@@ -89,11 +92,13 @@ class NewReview extends React.Component {
 
   handleSummaryChange(e) {
     e.preventDefault();
+    this.props.render(e);
     this.setState({ summary: e.target.value });
   }
 
   handleRecommendChange(e) {
     e.preventDefault();
+    this.props.render(e);
     this.setState({
       recommend: e.target.value,
       recommend_chosen: true
@@ -102,6 +107,7 @@ class NewReview extends React.Component {
 
   handleBodyChange(e, state) {
     e.preventDefault();
+    this.props.render(e);
     let charsNeeded = 49 - this.state.body.length;
     this.setState({
       body: e.target.value,
@@ -110,16 +116,19 @@ class NewReview extends React.Component {
   }
 
   handleNameChange(e) {
+    this.props.render(e);
     e.preventDefault();
     this.setState({ name: e.target.value });
   }
 
   handleEmailChange(e) {
+    this.props.render(e);
     e.preventDefault();
     this.setState({ email: e.target.value });
   }
 
   addPhotos(e) {
+    this.props.render(e);
     e.preventDefault();
     const client = filestack.init(API_KEYS.FILESTACK_API_KEY);
     let options = {
@@ -163,6 +172,7 @@ class NewReview extends React.Component {
   }
 
   submitReview(e) {
+    this.props.render(e);
     e.preventDefault();
 
     let warning = 'You must enter the following: '
@@ -278,7 +288,7 @@ class NewReview extends React.Component {
                 <input type="radio" value="false" name="recommend" /> No
               </div>
               <div>
-                <InputProductBreakdowns characteristics={characteristics} update_characteristics={this.updateCharacteristics}></InputProductBreakdowns>
+                <InputProductBreakdowns render={this.props.render} characteristics={characteristics} update_characteristics={this.updateCharacteristics}></InputProductBreakdowns>
               </div>
               <br></br><br></br><br></br><br></br><br></br><br></br>
               <br></br><br></br><br></br><br></br><br></br><br></br>

@@ -2,6 +2,7 @@ import React from 'react';
 import Modal from 'react-modal';
 import _ from 'underscore';
 import $ from 'jquery';
+import moment from 'moment';
 import API_KEYS from '../../../../../env/config.js';
 
 // Modal.setAppElement('#app');
@@ -100,7 +101,7 @@ class AnswerQuestion extends React.Component {
         updatedPhotos.push(file.url);
 
         let updatedThumbnails = <div className="a-modal-thumbnails">{_.map(updatedPhotos, photo => {
-          return <img className="a-modal-thumbnail" key={photo} src={photo}></img>
+          return <img className="a-modal-thumbnail" key={photo} src={photo} alt="Answer Thumbnail" />
         })}</div>
 
         this.setState({photos: updatedPhotos, thumbnails: updatedThumbnails});
@@ -131,9 +132,18 @@ class AnswerQuestion extends React.Component {
         method: 'POST',
         data: answerData,
         success: () => {
-          this.setState({invalid: '', photos: []})
           this.closeModal(e);
-          this.props.getQAData();
+          let newAnswer = {
+            id: Math.floor(Math.random() * (6500000 - 6000000 + 1)) + 6000000,
+            body: this.state.answer,
+            date: moment().local().format('YYYY-MM-DD').concat('T00:00:00.000Z'),
+            answerer_name: this.state.nickname,
+            helpfulness: 0,
+            photos: this.state.photos
+          };
+
+          this.props.updateAnswers(this.props.question_id, newAnswer);
+          this.setState({invalid: '', photos: []})
         },
         error: err => {
           alert(err);

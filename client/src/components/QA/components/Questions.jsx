@@ -66,7 +66,7 @@ class Questions extends React.Component {
   handleScroll(e) {
     e.preventDefault();
     const wrapped = $('.questions').get(0);
-    if (wrapped.offsetHeight + wrapped.scrollTop >= wrapped.scrollHeight) {
+    if (wrapped.offsetHeight + wrapped.scrollTop >= wrapped.scrollHeight - 1) {
       this.scrollUpdate(e);
     }
   }
@@ -100,14 +100,14 @@ class Questions extends React.Component {
     }
 
     return <div>
-      <a className="jumper" href=".questions"></a>
+      <a className="jumper" aria-label="jumper" href=".questions"></a>
       <div key="questions" className="questions" data-testid="questions" onScroll={this.handleScroll.bind(this)}>
         <ul className="q-base">
           {_.map(this.props.questions.slice(0, this.state.questionCount), q => {
-            return <div className="question" data-testid={q.question_body}
+            return <li className="question" data-testid={q.question_body}
               key={`${q.question_body}-${q.question_id}`}
             >
-              <li key={`q-${q.question_id}`}>
+              <div key={`q-${q.question_id}`}>
                 <div className="q-header">
                   <div>
                     <span className="q-label">Q:</span>
@@ -118,32 +118,34 @@ class Questions extends React.Component {
                       <span className="q-helpful">Helpful?</span>&nbsp;
                       <span className={`q-help-count q-help-${q.question_id}-${q.question_helpfulness}`}
                         onClick={this.questionIsHelpful.bind(this)}>
-                        <span className={`help-yes q-help-${q.question_id}-${q.question_helpfulness}`}>
+                        <span className={`q-help-count q-help-${q.question_id}-${q.question_helpfulness}`}>
                           Yes
                         </span>&nbsp;{`(${q.question_helpfulness})`}
                       </span>
                     </div>
                     <span className="vertical-bar">|</span>
-                    <AnswerQuestion question_id={q.question_id} getQAData={this.props.getQAData}
+                    <AnswerQuestion question_id={q.question_id} updateAnswers={this.props.updateAnswers}
                       product_id={this.props.product_id}
+                      product_name={this.props.product_name}
                       question_body={q.question_body}
                       render={this.props.render} />
                   </div>
                 </div>
                 <div className="a-label-list">
                   {this.answersExist(q.answers)}
-                  <AnswerList answers={q.answers} question_id={q.question_id} product_name={this.props.product_name}
+                  <AnswerList answers={q.answers} question_id={q.question_id}
                     updateAHelp={this.props.updateAHelp}
                     render={this.props.render} />
                 </div>
-              </li>
-            </div>
+              </div>
+            </li>
           })}
         </ul>
       </div>
       {more}
       <AskQuestion key="ask-question" className="ask-question"
         getQAData={this.props.getQAData}
+        updateQuestions={this.props.updateQuestions}
         product_id={this.props.product_id}
         product_name={this.props.product_name}
         render={this.props.render} />

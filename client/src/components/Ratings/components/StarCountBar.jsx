@@ -9,7 +9,7 @@ class StarCount extends React.Component {
   }
 
   flipFilter(e) {
-
+    this.props.render(e);
     this.props.flip_filters(e.target.innerHTML);
     this.props.filter_data();
   }
