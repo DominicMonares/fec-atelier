@@ -19,7 +19,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       item_id: Math.floor(Math.random() * (60563 - 59553 + 1)) + 59553,
-      //item_id: 59557,
+      // item_id: 64620,
       myOutfit: [],
       darkmode: false
     };
